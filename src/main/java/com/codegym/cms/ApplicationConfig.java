@@ -3,7 +3,7 @@ package com.codegym.cms;
 import com.codegym.cms.repository.CustomerRepository;
 import com.codegym.cms.repository.impl.CustomerRepositoryImpl;
 import com.codegym.cms.service.CustomerService;
-import com.codegym.cms.service.impl.CustomerServiecImpl;
+import com.codegym.cms.service.impl.CustomerServiceImpl;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
@@ -51,7 +51,7 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter implements Applic
 
     @Bean
     public CustomerService customerService(){
-        return new CustomerServiecImpl();
+        return new CustomerServiceImpl();
     }
 
 
@@ -60,7 +60,7 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter implements Applic
     public SpringResourceTemplateResolver templateResolver(){
         SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
         templateResolver.setApplicationContext(applicationContext);
-        templateResolver.setPrefix("/WEB-INF/view/");
+        templateResolver.setPrefix("/WEB-INF/view/customer");
         templateResolver.setSuffix(".html");
         templateResolver.setTemplateMode(TemplateMode.HTML);
         return templateResolver;

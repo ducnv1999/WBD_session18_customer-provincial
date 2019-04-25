@@ -2,17 +2,18 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Create customer</title>
+    <title>Edit customer</title>
 </head>
 <body>
-<h1>Create customer</h1>
+<h1>Edit customer</h1>
 <p>
     <a href="/customers">Return to the customer list</a>
 </p>
 <th:block th:if="${message}">
     <p th:text="${message}"></p>
 </th:block>
-<form th:action="@{/create-customer}" th:object="${customer}" method="post">
+<form th:action="@{/edit-customer}" th:object="${customer}" method="post">
+    <input th:type="hidden" name="id" th:field="*{id}">
     <table>
         <tr>
             <td>First name:</td>
@@ -24,7 +25,7 @@
         </tr>
         <tr>
             <td></td>
-            <td><input type="submit" value="Create customer"></td>
+            <td><input type="submit" value="Update customer"></td>
         </tr>
     </table>
 </form>

@@ -14,24 +14,59 @@ import java.util.List;
 
 @Controller
 public class CustomerController {
-//    @GetMapping("/create-customer")
-//    public ModelAndView showCreateForm(){
-//        ModelAndView modelAndView = new ModelAndView("create");
-//        modelAndView.addObject("customer", new Customer());
-//        return modelAndView;
-//    }
-//
-//    @PostMapping("/create-customer")
-//    public ModelAndView saveCustomer(@ModelAttribute("customer") Customer customer){
-//        CustomerService.save(customer);
-//
-//        ModelAndView modelAndView = new ModelAndView("create");
-//        modelAndView.addObject("customer", new Customer());
-//        modelAndView.addObject("message", "New customer created successfully");
-//        return modelAndView;
-//    }
-    @GetMapping("/")
-    public String index(){
-        return "customer/create";
+
+    @Autowired
+    private CustomerService customerService;
+
+
+
+    @GetMapping("/customers")
+    public ModelAndView listCustomers(){
+        List<Customer> customers = customerService.findAll();
+        ModelAndView modelAndView = new ModelAndView("/list");
+        modelAndView.addObject("customers", customers);
+        return modelAndView;
     }
+        @GetMapping("/create-customer")
+    public ModelAndView showCreateForm(){
+        ModelAndView modelAndView = new ModelAndView("/create");
+        modelAndView.addObject("customer", new Customer());
+        return modelAndView;
+    }
+
+    @PostMapping("/create-customer")
+    public ModelAndView saveCustomer(@ModelAttribute("customer") Customer customer){
+        customerService.save(customer);
+
+        ModelAndView modelAndView = new ModelAndView("/create");
+        modelAndView.addObject("customer", new Customer());
+        modelAndView.addObject("message", "New customer created successfully");
+        return modelAndView;
+    }
+
+    @GetMapping("/edit-customer/{id}")
+
+    public ModelAndView showEditForm(@PathVariable long id){
+        Customer customer = customerService.findById(id);
+        if (customer != null){
+            ModelAndView modelAndView = new ModelAndView("/edit");
+            modelAndView.addObject("customer", customer);
+            return modelAndView;
+
+        }
+        else {
+            ModelAndView modelAndView = new ModelAndView("/error.404");
+            return modelAndView;
+        }
+    }
+
+    @PostMapping("/edit-customer")
+    public ModelAndView updateCustomer(@ModelAttribute("customer")Customer customer){
+        customerService.save(customer);
+        ModelAndView modelAndView = new ModelAndView("/edit");
+        modelAndView.addObject("customer", customer);
+        modelAndView.addObject("message", "customer updated successfully");
+        return modelAndView;
+    }
+
 }
