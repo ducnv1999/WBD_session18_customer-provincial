@@ -1,11 +1,13 @@
 package com.codegym.cms.service;
 
 import com.codegym.cms.model.Customer;
+import com.codegym.cms.model.Province;
 
 import java.util.List;
 
 public interface CustomerService {
-    List<Customer> findAll();
+    Iterable<Customer> findAllByProvince(Province province);
+    Iterable<Customer> findAll();
 
     Customer findById(Long id);
 
